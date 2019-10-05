@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>山河寻遍</title>
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/static/css/uikit.min.css"/>
+    <link rel="stylesheet" href="/static/css/base.css"/>
+    <script src="/static/js/jquery-3.4.1.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/uikit.min.js"></script>
+    <script src="/static/js/uikit-icons.min.js"></script>
+</head>
+<body>
+<nav class="uk-navbar-container" uk-navbar>
+    <div class="uk-width-1-6"></div>
+    <div class="uk-width-4-6">
+        <ul class="uk-navbar-left uk-navbar-nav">
+            <li><a uk-toggle="target: #offcanvas-nav" uk-icon="icon:table"></a></li>
+            <li class="uk-active">
+                <a href="home.html" style="font-size: 20px;font-family: font;font-weight: bold">
+                    <img src="../static/img/山河.png" alt="山河寻遍" style="width: 30px;height: 45px">
+                </a>
+            </li>
+            <li>
+                {% if request.session.is_login %}
+                <a href="#">您好，user</a>
+                <div class="uk-navbar-dropdown">
+                    <ul class="uk-nav uk-navbar-dropdown-nav">
+                        <li><a href="#">个人中心</a></li>
+                        <li><a href="#">历史查询</a></li>
+                        <li><a href="#">收藏景点</a></li>
+                        <li class="uk-nav-divider"></li>
+                        <li><a href="#">注销</a></li>
+                    </ul>
+                </div>
+                {% else %}
+                    <a href="#">您好，请登录</a>
+                    <div class="uk-navbar-dropdown">
+                        <ul class="uk-nav uk-navbar-dropdown-nav">
+                            <li><a href="/login">登录</a></li>
+                            <li><a href="/register">注册</a></li>
+                        </ul>
+                    </div>
+                {% endif %}
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="uk-text-center uk-container-center">
+    <div class="uk-inline-clip uk-transition-toggle" tabindex="0">
+        <img src="../static/img/水墨中华.jpg" alt="">
+        <!--uk-transition-fade-->
+        <div class="uk-position-cover uk-overlay uk-overlay-default">
+            <div class="tall">
+                <div class="col-8 center-block">
+                    <div class="center-block" style="padding-top: 6rem;padding-bottom: 2rem">
+                        <h1 class="font text-center display-3">山河寻遍</h1>
+                    </div>
+                    <form class="col-10 center-block" action="/search">
+                        <div class="input-group">
+                            <label for="data"></label>
+                            <input type="text" class="form-control" id="data" name="search_field"
+                                   placeholder="">
+                            <div class="input-group-append">
+                                <input class="btn btn-primary" type="submit" value="搜索">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="offcanvas-nav" uk-offcanvas="overlay: true;">
+    <div class="uk-offcanvas-bar uk-offcanvas-slide:none">
+        <ul class="uk-nav uk-nav-default uk-container-center" uk-nav>
+            {% for province in data %}
+                <li>
+                    <hr class="uk-nav-divider">
+                </li>
+                <li class="uk-parent">
+                    <a href="#">
+                        <div class="uk-inline" id="id-{{ province.name }}" onclick="displayCity('{{ province.name }}')">
+                            <img class="bar-img-size" src="/static/img/province/{{ province.name }}.jpg"
+                                 alt="{{ province.name }}">
+                            <div class="uk-overlay uk-position-center"><h3 class="font">{{ province.name }}</h3></div>
+                        </div>
+                    </a>
+                    <ul id="list-{{ province.name }}" class="uk-nav-sub cl-city" uk-nav></ul>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+
+</body>
+<script src="/static/js/footer.js"></script>
+</html>

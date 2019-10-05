@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>山河寻遍-登录</title>
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/uikit.min.css"/>
+    <link rel="stylesheet" href="../static/css/base.css">
+    <script src="../static/js/jquery-3.4.1.min.js"></script>
+    <script src="../static/js/bootstrap.min.js"></script>
+    <script src="../static/js/uikit.min.js"></script>
+    <script src="../static/js/uikit-icons.min.js"></script>
+</head>
+<body>
+<script src="navbar.js"></script>
+<div class="uk-text-center uk-container-center" style="padding-bottom: 2rem">
+    <div class="uk-inline-clip uk-transition-toggle" tabindex="0">
+        <img src="../static/img/水墨中华.jpg" alt="">
+        <div class="uk-position-cover uk-overlay uk-overlay-default">
+            <div class="tall">
+                <div class="col-5 center-block" style="margin-top: 4rem">
+                    <div class="uk-card uk-card-default uk-card-body">
+                        <ul class="uk-child-width-expand" uk-switcher="animation: uk-animation-fade" uk-tab>
+                            <li><a href="#">登录</a></li>
+                            <li><a href="#">注册</a></li>
+                        </ul>
+                        <ul class="uk-switcher uk-margin">
+                            <li>
+                                <form method="post" id="form-login" action="/login">
+                                    <div class="uk-margin">
+                                        <div class="uk-inline">
+                                            <label for="login_username" style="display: none"></label>
+                                            <a class="uk-form-icon uk-form-icon-flip" uk-icon="icon: user" href="#"></a>
+                                            <input id="login_username" name="login_username" class="uk-input"
+                                                   type="text" placeholder="用户名"
+                                                   onfocus="this.placeholder='';"
+                                                   onblur="this.placeholder='用户名';this.classList.remove('uk-form-danger')">
+                                        </div>
+                                    </div>
+                                    <div class="uk-margin">
+                                        <div class="uk-inline">
+                                            <label for="login_password" style="display: none"></label>
+                                            <a class="uk-form-icon uk-form-icon-flip" uk-icon="icon: lock" href="#"></a>
+                                            <input id="login_password" name="login_password" class="uk-input"
+                                                   type="password" placeholder="密码"
+                                                   onfocus="this.placeholder='';"
+                                                   onblur="this.placeholder='密码';this.classList.remove('uk-form-danger')">
+                                        </div>
+                                    </div>
+
+                                    <div class="uk-margin">
+                                        <input type="submit" class="uk-button uk-button-default center-block" value="登录"
+                                               onclick="check_login()">
+                                    </div>
+                                </form>
+                            </li>
+                            <li>
+                                <form id="form-register" method="post" action="/register">
+                                    <div class="uk-margin">
+                                        <div class="uk-inline">
+                                            <label for="register_username" style="display: none"></label>
+                                            <a class="uk-form-icon uk-form-icon-flip" uk-icon="icon: user" href="#"></a>
+                                            <input id="register_username" name="register_username" class="uk-input"
+                                                   type="text" placeholder="用户名"
+                                                   onfocus="this.placeholder='';"
+                                                   onblur="this.placeholder='用户名';this.classList.remove('uk-form-danger')">
+                                        </div>
+                                    </div>
+                                    <div class="uk-margin">
+                                        <div class="uk-inline">
+                                            <label for="register_password" style="display: none"></label>
+                                            <a class="uk-form-icon uk-form-icon-flip" uk-icon="icon: lock" href="#"></a>
+                                            <input id="register_password" name="register_password" class="uk-input"
+                                                   type="password"
+                                                   placeholder="密码"
+                                                   onfocus="this.placeholder='';"
+                                                   onblur="this.placeholder='密码';this.classList.remove('uk-form-danger')">
+                                        </div>
+                                    </div>
+                                    <div class="uk-margin">
+                                        <div class="uk-inline">
+                                            <label for="register_password" style="display: none"></label>
+                                            <a class="uk-form-icon uk-form-icon-flip" uk-icon="icon: lock" href="#"></a>
+                                            <input id="confirm_password" name="register_confirm" class="uk-input"
+                                                   type="password"
+                                                   placeholder="确认"
+                                                   onfocus="this.placeholder='';"
+                                                   onblur="this.placeholder='确认';this.classList.remove('uk-form-danger')">
+                                        </div>
+                                    </div>
+                                    <div class="uk-margin">
+                                        <div class="uk-inline">
+                                            <label for="register_email" style="display: none"></label>
+                                            <a class="uk-form-icon uk-form-icon-flip" uk-icon="icon: mail" href="#"></a>
+                                            <input id="register_email" name="register_email" class="uk-input"
+                                                   type="email" placeholder="邮箱"
+                                                   onfocus="this.placeholder='';"
+                                                   onblur="this.placeholder='邮箱';this.classList.remove('uk-form-danger')">
+                                        </div>
+                                    </div>
+                                    <div class="uk-margin">
+                                        <input type="submit" class="uk-button uk-button-default center-block" value="注册" onclick="check_register()">
+                                    </div>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="bar.js"></script>
+
+</body>
+<script src="/static/js/footer.js"></script>
+</html>
+<script>
+    function check_login() {
+        let username = document.getElementById('login_username');
+        let password = document.getElementById('login_password');
+        if (username.value === '') {
+            username.placeholder = "用户名不能为空";
+            username.classList.add("uk-form-danger");
+            window.event.returnValue = false;
+        } else if (username.value.length > 15) {
+            username.value = "";
+            username.placeholder = "用户名不大于15字";
+            username.classList.add("uk-form-danger");
+            window.event.returnValue = false;
+        }
+
+        if (password.value === "") {
+            password.placeholder = "密码不能为空";
+            password.classList.add("uk-form-danger");
+            window.event.returnValue = false;
+        } else if (password.value.length > 15) {
+            password.value = "";
+            password.placeholder = "密码长度不大于15字";
+            password.classList.add("uk-form-danger");
+            window.event.returnValue = false;
+        } else if (password.value.length < 6) {
+            password.value = "";
+            password.placeholder = "密码长度不小于6字";
+            password.classList.add("uk-form-danger");
+            window.event.returnValue = false;
+        }
+    }
+
+    function check_register() {
+        let username = document.getElementById("register_username");
+        let password = document.getElementById("register_password");
+        let confirm_password = document.getElementById("confirm_password");
+        let email = document.getElementById("register_email");
+        let regular = /^[a-zA-Z0-9_-]+@([a-zA-Z0-9]+\.)+(com|cn|net|org)$/;
+
+        if (username.value === "") {
+            username.placeholder = "用户名不能为空";
+            username.classList.add("uk-form-danger");
+            window.event.returnValue = false;
+        } else if (username.value.length > 15) {
+            username.value = "";
+            username.placeholder = "用户名长度不大于15字";
+            username.classList.add("uk-form-danger");
+            window.event.returnValue = false;
+        }
+
+        if (password.value === "") {
+            password.placeholder = "密码不能为空";
+            password.classList.add("uk-form-danger");
+            window.event.returnValue = false;
+        } else if (password.value.length > 15) {
+            password.value = "";
+            password.placeholder = "密码长度不大于15字";
+            password.classList.add("uk-form-danger");
+            window.event.returnValue = false;
+        } else if (password.value.length < 6) {
+            password.value = "";
+            password.placeholder = "密码长度不小于6字";
+            password.classList.add("uk-form-danger");
+            window.event.returnValue = false;
+        }
+        if (confirm_password.value ==="") {
+            confirm_password.placeholder = "输入不能为空";
+            confirm_password.classList.add("uk-form-danger");
+            window.event.returnValue = false;
+        }else if (confirm_password.value !==password.value) {
+            confirm_password.placeholder = "密码不一致";
+            confirm_password.classList.add("uk-form-danger");
+            window.event.returnValue = false;
+        }
+
+        if (email.value === "") {
+            email.placeholder = "邮箱不能为空";
+            email.classList.add("uk-form-danger");
+            window.event.returnValue = false;
+        } else if (email.value.length > 50) {
+            email.value = "";
+            email.placeholder = "邮箱长度小于30字";
+            email.classList.add("uk-form-danger");
+            window.event.returnValue = false;
+        } else if (!regular.test(email.value)) {
+            email.value = "";
+            email.placeholder = "邮箱格式错误";
+            email.classList.add("uk-form-danger");
+            window.event.returnValue = false;
+        }
+
+    }
+</script>

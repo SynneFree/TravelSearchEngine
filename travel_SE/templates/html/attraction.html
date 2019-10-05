@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>山河寻遍-北京故宫</title>
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/static/css/uikit.min.css"/>
+    <link rel="stylesheet" href="/static/css/base.css"/>
+    <script src="/static/js/jquery-3.4.1.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/uikit.min.js"></script>
+    <script src="/static/js/uikit-icons.min.js"></script>
+    <script src="/static/js/leftbar.js"></script>
+    <script>
+        $('html').ajaxSend(function (event, xhr, settings) {
+            function getCookie(name) {
+                var cookieValue = null;
+                if (document.cookie && document.cookie != '') {
+                    var cookies = document.cookie.split(';');
+                    for (var i = 0; i < cookies.length; i++) {
+                        var cookie = jQuery.trim(cookies[i]);
+                        // Does this cookie string begin with the name we want?
+                        if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                            break;
+                        }
+                    }
+                }
+                return cookieValue;
+            }
+
+            if (!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))) {
+                // Only send the token to relative URLs i.e. locally.
+                xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+            }
+        });
+    </script>
+    <style>
+
+    </style>
+</head>
+<body style="background: url(/static/img/body-background.jpg) fixed content-box;">
+<nav class="uk-navbar-container" uk-navbar>
+    <div class="uk-width-1-6"></div>
+    <div class="uk-width-4-6">
+        <ul class="uk-navbar-left uk-navbar-nav">
+            <li><a uk-toggle="target: #offcanvas-nav" uk-icon="icon:table"></a></li>
+            <li class="uk-active">
+                <a href="/" style="font-size: 20px;font-family: font;font-weight: bold">
+                    <img src="../static/img/山河.png" alt="山河寻遍" style="width: 30px;height: 45px">
+                </a>
+            </li>
+            <li>
+                {% if request.session.is_login %}
+                    <a href="#">您好，{{ request.session.user_name }}</a>
+                    <div class="uk-navbar-dropdown">
+                        <ul class="uk-nav uk-navbar-dropdown-nav">
+                            <li><a href="/personal-center">个人中心</a></li>
+                            <li><a href="#">历史查询</a></li>
+                            <li><a href="#">收藏景点</a></li>
+                            <li class="uk-nav-divider"></li>
+                            <li><a href="#">注销</a></li>
+                        </ul>
+                    </div>
+                {% else %}
+                    <a href="#">您好，请登录</a>
+                    <div class="uk-navbar-dropdown">
+                        <ul class="uk-nav uk-navbar-dropdown-nav">
+                            <li><a href="/login">登录</a></li>
+                            <li><a href="/register">注册</a></li>
+                        </ul>
+                    </div>
+                {% endif %}
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="uk-container-center">
+    <div class="col-8 tall center-block" style="padding-top: 2rem; padding-bottom: 1rem;">
+        <div class="uk-card uk-card-default">
+            <div class="uk-card-header" style="background: #f8f8f8">
+                <h1 class="uk-article-title">
+                    <a class="uk-link-reset font" href="#">{{ Attraction.name }}</a>
+                    {% if request.session.is_login %}
+                        <span id="icon-span">
+                            {% if collected %}
+                                <a href="#" class="uk-icon"
+                                   onclick="cancel_collect('{{ request.session.user_name }}','{{ Attraction.name }}','{{ Attraction.location }}')">
+                                    <svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                        <polygon fill="#000" stroke="#000" stroke-width="1.01"
+                                                 points="10 2 12.63 7.27 18.5 8.12 14.25 12.22 15.25 18 10 15.27 4.75 18 5.75 12.22 1.5 8.12 7.37 7.27"></polygon>
+                                    </svg>
+                                </a>
+                            {% else %}
+                                <a href="#" uk-icon="star"
+                                   onclick="collect_attraction('{{ request.session.user_name }}','{{ Attraction.name }}','{{ Attraction.location }}')"></a>
+                            {% endif %}
+                        </span>
+                    {% endif %}
+                    <!--<a href="#" uk-icon="star"
+                       onclick="UIkit.notification({message: '收藏成功！', status: 'success'})"></a>-->
+                </h1>
+            </div>
+
+            <div class="uk-card-body">
+
+                <div class="uk-position-relative uk-visible-toggle uk-light uk-align-center uk-width-2-3" tabindex="-1"
+                     uk-slideshow="animation: pull">
+                    <ul class="uk-slideshow-items">
+                        {% for pic in pictures %}
+                            {% ifnotequal pic '' %}
+                                <li>
+                                    <img src="../static/img/pictures/{{ pic }}"
+                                         class="attraction-img-size uk-align-center"
+                                         alt="">
+                                </li>
+                            {% endifnotequal %}
+                        {% endfor %}
+                    </ul>
+                    <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous
+                       uk-slideshow-item="previous"></a>
+                    <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next
+                       uk-slideshow-item="next"></a>
+                </div>
+
+                <!--
+                         <div class="uk-position-relative uk-visible-toggle uk-light" uk-slider="center: true">
+                    <ul class="uk-slider-items uk-grid">
+
+                        {% for pic in pictures %}
+                            {% ifnotequal pic '' %}
+                                <li>
+                                    <img src="../static/img/pictures/{{ pic }}"
+                                         class="attraction-img-size uk-align-center"
+                                         alt="">
+                                </li>
+                            {% endifnotequal %}
+                        {% endfor %}
+                        {% ifnotequal map '' %}
+                            <li>
+                                <img src="../static/img/pictures/{{ Attraction.map }}"
+                                     class="attraction-img-size uk-align-center"
+                                     alt="">
+                            </li>
+                        {% endifnotequal %}
+                        {#                        <li>#}
+                        {#                            <img src="../static/img/attraction_img/北京故宫.jpg" class="attraction-img-size uk-align-center"#}
+                        {#                                 alt="">#}
+                        {#                        </li>#}
+                        {#                        <li>#}
+                        {#                            <img src="../static/img/attraction_img/太和殿.jpg" class="attraction-img-size uk-align-center"#}
+                        {#                                 alt="">#}
+                        {#                        </li>#}
+                        {#                        <li>#}
+                        {#                            <img src="../static/img/attraction_img/中和殿.jpg" class="attraction-img-size uk-align-center"#}
+                        {#                                 alt="">#}
+                        {#                        </li>#}
+                        {#                        <li>#}
+                        {#                            <img src="../static/img/attraction_img/太和殿.jpg" class="attraction-img-size uk-align-center"#}
+                        {#                                 alt="">#}
+                        {#                        </li>#}
+                    </ul>
+                    <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous
+                       uk-slider-item="previous"></a>
+                    <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next
+                       uk-slider-item="next"></a>
+                </div>
+
+                -->
+
+            </div>
+            <article class="uk-article uk-card-footer">
+                <ul class="uk-child-width-expand" uk-switcher="animation: uk-animation-fade" uk-tab>
+                    <li><a href="#">景区简介</a></li>
+                    <li><a href="#">旅游攻略</a></li>
+                    <li><a href="#">旅游路线</a></li>
+                    <li><a href="#">门票信息</a></li>
+                    <li><a href="#">相关服务</a></li>
+                    <li><a href="#">天气情况</a></li>
+                    <li><a href="#">周边景区</a></li>
+                    <li><a href="#" onclick="load_comment('{{ Attraction.name }}')">景点评论</a></li>
+                </ul>
+                <ul class="uk-switcher uk-margin">
+                    <li>
+                        <ul uk-accordion="multiple: true">
+                            {% ifequal Attraction.abstract '' %}
+                            {% else %}
+                                <li class="uk-open">
+                                    <a class="uk-accordion-title" href="#">景区简介</a>
+                                    <div class="uk-accordion-content">
+                                        <p>
+                                            {{ Attraction.abstract|safe }}<br/>
+                                        </p>
+                                    </div>
+                                </li>
+                            {% endifequal %}
+                            {% ifequal Attraction.distribution '' %}
+                            {% else %}
+                                <li class="uk-open">
+                                    <a class="uk-accordion-title" href="#">景点分布</a>
+                                    <div class="uk-accordion-content">
+                                        <p>
+                                            {{ Attraction.distribution|safe }}<br/>
+                                        </p>
+                                    </div>
+                                </li>
+                            {% endifequal %}
+                            {% ifequal Attraction.rank '' %}
+                            {% else %}
+                                <li class="uk-open">
+                                    <a class="uk-accordion-title" href="#">景区资质</a>
+                                    <div class="uk-accordion-content">
+                                        <p>{{ Attraction.rank|safe }}<br/></p>
+                                    </div>
+                                </li>
+                            {% endifequal %}
+                            {% ifequal Attraction.feature '' %}
+                            {% else %}
+                                <li class="uk-open">
+                                    <a class="uk-accordion-title" href="#">景区特色</a>
+                                    <div class="uk-accordion-content">
+                                        <p>{{ Attraction.feature|safe }}<br/></p>
+                                    </div>
+                                </li>
+                            {% endifequal %}
+                        </ul>
+                    </li>
+                    <li>
+                        <ul uk-accordion="multiple: true">
+                            {% ifequal Attraction.strategy '' %}
+                            {% else %}
+                                <li class="uk-open">
+                                    <a class="uk-accordion-title" href="#">旅游攻略</a>
+                                    <div class="uk-accordion-content">
+                                        <p>
+                                            {{ Attraction.strategy|safe }}<br/>
+                                        </p>
+                                    </div>
+                                </li>
+                            {% endifequal %}
+                            {% ifequal Attraction.route '' %}
+                            {% else %}
+                                <li class="uk-open">
+                                    <a class="uk-accordion-title" href="#">游览路线</a>
+                                    <div id="route" class="uk-accordion-content">
+
+                                        <p>
+                                            {{ Attraction.route|safe }}<br/>
+                                        </p>
+                                    </div>
+                                </li>
+                            {% endifequal %}
+                            {% ifequal Attraction.bestTime '' %}
+                            {% else %}
+                                <li class="uk-open">
+                                    <a class="uk-accordion-title" href="#">最佳游览时间</a>
+                                    <div class="uk-accordion-content">
+                                        <p>{{ Attraction.bestTime|safe }}<br/></p>
+                                    </div>
+                                </li>
+                            {% endifequal %}
+                            {% ifequal Attraction.shopping '' %}
+                            {% else %}
+                                <li class="uk-open">
+                                    <a class="uk-accordion-title" href="#">购物推荐</a>
+                                    <div class="uk-accordion-content">
+                                        <p>{{ Attraction.shopping|safe }}<br/></p>
+                                    </div>
+                                </li>
+                            {% endifequal %}
+                        </ul>
+                    </li>
+                    <li>
+                        <ul uk-accordion="multiple: true">
+                            {% ifequal Attraction.location '' %}
+                            {% else %}
+                                <li class="uk-open">
+                                    <a class="uk-accordion-title" href="#">景区位置</a>
+                                    <div class="uk-accordion-content">
+                                        <p>&emsp;&emsp;{{ Attraction.location|safe }}<br/></p>
+                                    </div>
+                                </li>
+                            {% endifequal %}
+                            {% ifequal Attraction.traffic_info '' %}
+                            {% else %}
+                                <li class="uk-open">
+                                    <a class="uk-accordion-title" href="#">到达方式</a>
+                                    <div id="test" class="uk-accordion-content">
+                                        <p>
+                                            {{ Attraction.traffic_info|safe }}<br/>
+                                        </p>
+                                    </div>
+                                </li>
+                            {% endifequal %}
+                        </ul>
+                    </li>
+                    <li>
+                        <ul uk-accordion="multiple: true">
+                            {% ifequal Attraction.ticket_info '' %}
+                            {% else %}
+                                <li class="uk-open">
+                                    <a class="uk-accordion-title" href="#">故宫门票价格</a>
+                                    <div class="uk-accordion-content">
+                                        <p>
+                                            {{ Attraction.ticket_info|safe }}<br/>
+                                        </p>
+                                    </div>
+                                </li>
+                            {% endifequal %}
+                            {% ifequal Attraction.openTime '' %}
+                            {% else %}
+                                <li class="uk-open">
+                                    <a class="uk-accordion-title" href="#">景区开放时间</a>
+                                    <div class="uk-accordion-content">
+                                        <p>
+                                            {{ Attraction.openTime|safe }}<br/>
+                                        </p>
+                                    </div>
+                                </li>
+                            {% endifequal %}
+                        </ul>
+                    </li>
+                    <li>
+                        <ul uk-accordion="multiple: true">
+                            {% ifequal Attraction.official_site '' %}
+                            {% else %}
+                                <li class="uk-open">
+                                    <a class="uk-accordion-title" href="#">景区官网</a>
+                                    <div class="uk-accordion-content">
+                                        <p>{{ Attraction.official_site|safe }}<br/></p>
+                                    </div>
+                                </li>
+                            {% endifequal %}
+                            {% ifequal Attraction.service '' %}
+                            {% else %}
+                                <li class="uk-open">
+                                    <a class="uk-accordion-title" href="#">景区服务</a>
+                                    <div class="uk-accordion-content">
+                                        <p>
+                                            {{ Attraction.service|safe }}<br/>
+                                        </p>
+                                    </div>
+                                </li>
+                            {% endifequal %}
+                            {% ifequal Attraction.telephone '' %}
+                            {% else %}
+                                <li class="uk-open">
+                                    <a class="uk-accordion-title" href="#">景区电话</a>
+                                    <div class="uk-accordion-content">
+                                        <p>{{ Attraction.telephone|safe }}<br/></p>
+                                    </div>
+                                </li>
+                            {% endifequal %}
+                            {% ifequal Attraction.attention_items '' %}
+                            {% else %}
+                                <li class="uk-open">
+                                    <a class="uk-accordion-title" href="#">注意事项</a>
+                                    <div class="uk-accordion-content">
+                                        <p>{{ Attraction.attention_items|safe }}<br/></p>
+                                    </div>
+                                </li>
+                            {% endifequal %}
+                        </ul>
+                    </li>
+                    <li>
+                        <ul uk-accordion="multiple: true">
+                            <li class="uk-open">
+                                <a class="uk-accordion-title" href="#">天气预报</a>
+                                <div class="uk-accordion-content" style="text-align: center">
+                                    <iframe width="500" scrolling="no" height="60" frameborder="0"
+                                            allowtransparency="true"
+                                            src="//i.tianqi.com/index.php?c=code&id=12&icon=1&py={{ pinyin }}&num=5&site=12">
+                                    </iframe>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <ul uk-accordion="multiple: true">
+                            {% ifequal Attraction.attention_items '' %}
+                            {% else %}
+                                <li class="uk-open">
+                                    <a class="uk-accordion-title" href="#">周边景区</a>
+                                    <div class="uk-accordion-content">
+                                        {% for item in Attraction.around%}
+                                            <p>{{ item }}</p>
+                                        {% endfor %}
+                                    </div>
+                                </li>
+                            {% endifequal %}
+                        </ul>
+                    </li>
+                    <li>
+                        <ul id="comments-part" uk-accordion="multiple: true">
+                        </ul>
+                        <div><br></div>
+                        <div class="uk-card uk-card-default uk-card-body" style="padding-top: 20px">
+                            <p>发表评论</p>
+                            <fieldset class="uk-fieldset">
+                                <div class="uk-margin">
+                                            <textarea id="textarea-comment" class="uk-textarea" rows="5"
+                                                      placeholder="请自觉遵守互联网相关的政策法规，严禁发布色情、暴力、反动的言论。"
+                                                      onfocus="this.placeholder=''"
+                                                      onblur="this.placeholder='请自觉遵守互联网相关的政策法规，严禁发布色情、暴力、反动的言论。'"></textarea>
+                                    <br>
+                                </div>
+                                <div class="uk-margin">
+                                    <a class="uk-button uk-button-default uk-align-right"
+                                       onclick="publish_comment('{{ request.session.user_name }}','{{ Attraction.name }}')">发布</a>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </li>
+                </ul>
+            </article>
+        </div>
+    </div>
+</div>
+<div id="offcanvas-nav" uk-offcanvas="overlay: true;">
+    <div class="uk-offcanvas-bar uk-offcanvas-slide:none">
+        <ul class="uk-nav uk-nav-default uk-container-center" uk-nav>
+            {% for province in data %}
+                <li>
+                    <hr class="uk-nav-divider">
+                </li>
+                <li class="uk-parent">
+                    <a href="#">
+                        <div class="uk-inline" id="id-{{ province.name }}" onclick="displayCity('{{ province.name }}')">
+                            <img class="bar-img-size" src="/static/img/province/{{ province.name }}.jpg"
+                                 alt="{{ province.name }}">
+                            <div class="uk-overlay uk-position-center"><h3 class="font">{{ province.name }}</h3></div>
+                        </div>
+                    </a>
+                    <ul id="list-{{ province.name }}" class="uk-nav-sub cl-city" uk-nav>
+                        <ul class="cl-area"></ul>
+                    </ul>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+<div style="position: fixed;right: 80px;bottom: 300px;width: 120px;height: 120px;"
+     style="background: rgba(255,255,255,.0)">
+    <div class="uk-card uk-card-default" style="background: rgba(255,255,255,.0)">
+        <div class="uk-card-body" style="background: rgba(255,255,255,.7)">
+            <ul class="uk-nav uk-nav-default" style="padding: 0;">
+                <li><a style="padding-left: 32px;padding-right: 20px" href="/personal-center">个人中心</a></li>
+                <li><a style="padding-left: 32px;padding-right: 0" href="/personal-center">热门景点</a></li>
+                <li><a style="padding-left: 32px;padding-right: 20px" href="#">历史查询</a></li>
+                <li><a style="padding-left: 32px;padding-right: 20px" href="/">返回首页</a></li>
+                <li><a style="padding-left: 50px" href="#" uk-totop uk-scroll></a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<script>
+    function load_comment(attractionName) {
+        $.ajax({
+            url: '/load-comment',
+            type: 'GET',
+            data: {
+                attractionName: attractionName,
+            },
+            success: function (ret) {
+                var list = JSON.parse(ret['comment_list']);
+                console.log(list);
+                var str = '';
+                for (var i = 0; i < list.length; i++) {
+                    console.log(list[i]['fields']);
+                    var comment = list[i]['fields'];
+                    str += '<li class="uk-card uk-card-default uk-card-body">\n' +
+                        '                                <header class="uk-comment-header uk-grid-medium uk-flex-middle" uk-grid>\n' +
+                        '                                    <div class="uk-width-expand">\n' +
+                        '                                        <h4 class="uk-comment-title uk-margin-remove"><a class="uk-link-reset" href="#">' +
+                        comment['user_name'] +
+                        '</a>\n' +
+                        '                                        </h4>\n' +
+                        '                                        <ul class="uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top">\n' +
+                        '                                            <li><a href="#">' +
+                        comment['timestamp'] +
+                        '</a></li>\n' +
+                        '                                            <li><a href="#">回复</a></li>\n' +
+                        '                                        </ul>\n' +
+                        '                                    </div>\n' +
+                        '                                </header>\n' +
+                        '                                <div class="uk-comment-body">\n' +
+                        '                                    <p>\n' +
+                        comment['comment_text'] +
+                        '                                    </p>\n' +
+                        '                                </div>\n' +
+                        '                            </li>';
+                }
+                document.getElementById('comments-part').innerHTML = str;
+                $("#textarea-comment").val('');
+            },
+            error: function () {
+                UIkit.notification({message: 'Page Error！', status: 'danger'});
+            }
+        })
+    }
+
+
+    function publish_comment(userName, attractionName) {
+        var commentText = $('#textarea-comment').val();
+        $.ajax({
+            url: '/publish-comment',
+            type: 'GET',
+            data: {
+                userName: userName,
+                attractionName: attractionName,
+                comment_text: commentText,
+            },
+            success: function (ret) {
+                console.log(ret.flag);
+                var list = JSON.parse(ret['comment_list']);
+                console.log(list);
+                var str = ''
+                for (var i = 0; i < list.length; i++) {
+                    console.log(list[i]['fields']);
+                    var comment = list[i]['fields'];
+                    str += '<li class="uk-card uk-card-default uk-card-body">\n' +
+                        '                                <header class="uk-comment-header uk-grid-medium uk-flex-middle" uk-grid>\n' +
+                        '                                    <div class="uk-width-expand">\n' +
+                        '                                        <h4 class="uk-comment-title uk-margin-remove"><a class="uk-link-reset" href="#">' +
+                        comment['user_name'] +
+                        '</a>\n' +
+                        '                                        </h4>\n' +
+                        '                                        <ul class="uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top">\n' +
+                        '                                            <li><a href="#">' +
+                        comment['timestamp'] +
+                        '</a></li>\n' +
+                        '                                            <li><a href="#">回复</a></li>\n' +
+                        '                                        </ul>\n' +
+                        '                                    </div>\n' +
+                        '                                </header>\n' +
+                        '                                <div class="uk-comment-body">\n' +
+                        '                                    <pre>\n' +
+                        comment['comment_text'] +
+                        '                                    </p>\n' +
+                        '                                </div>\n' +
+                        '                            </li>';
+                }
+                if (ret.flag == false) {
+                    UIkit.notification({message: '请输入评论 !', status: 'warning'});
+                } else {
+                    UIkit.notification({message: '&emsp;&emsp;&emsp;&emsp;评论成功 ！', status: 'success'});
+                }
+                document.getElementById('comments-part').innerHTML = str;
+                $("#textarea-comment").val('');
+            },
+            error: function () {
+                UIkit.notification({message: 'Page Error！', status: 'danger'});
+            }
+        })
+    }
+
+
+    function collect_attraction(username, name, location) {
+        var post_data = 0;
+        var d = {
+            'userName': username,
+            'attractionName': name,
+        };
+        dd = jQuery.param(d);
+        ddd = JSON.stringify(d);
+        $.ajax({
+            url: '/collect',
+            type: 'POST',
+            contentType: 'application/x-www-form-urlencoded',
+            data: {
+                userName: username,
+                attractionName: name,
+                location: location,
+            },
+            success: function (ret) {
+                console.log(ret)
+                if (ret == true) {
+                    UIkit.notification({message: '已收藏！', status: 'danger'});
+                } else {
+                    UIkit.notification({message: '收藏成功！', status: 'success'})
+                    document.getElementById('icon-span').innerHTML = '<a href="#" class="uk-icon"\n' +
+                        '                                   onclick="cancel_collect(\'{{ request.session.user_name }}\',\'{{ Attraction.name }}\',\'{{ Attraction.location }}\')">\n' +
+                        '                                    <svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">\n' +
+                        '                                        <polygon fill="#000" stroke="#000" stroke-width="1.01"\n' +
+                        '                                                 points="10 2 12.63 7.27 18.5 8.12 14.25 12.22 15.25 18 10 15.27 4.75 18 5.75 12.22 1.5 8.12 7.37 7.27"></polygon>\n' +
+                        '                                    </svg>\n' +
+                        '                                </a>'
+                }
+            }
+        });
+        return false;
+    }
+
+    function cancel_collect(username, attractionName, location) {
+        var post_data = 0;
+        var d = {
+            'userName': username,
+            'attractionName': attractionName,
+        };
+        dd = jQuery.param(d);
+        ddd = JSON.stringify(d);
+        $.ajax({
+            url: '/cancel-collect',
+            type: 'POST',
+            contentType: 'application/x-www-form-urlencoded',
+            data: {
+                userName: username,
+                attractionName: attractionName,
+                location: location,
+            },
+            success: function (ret) {
+                console.log(ret)
+                if (ret == true) {
+                    UIkit.notification({message: '已取消收藏！', status: 'danger'});
+                    document.getElementById('icon-span').innerHTML = '                                <a href="#" uk-icon="star"\n' +
+                        '                                   onclick="collect_attraction(\'' +
+                        username +
+                        '\',\'' +
+                        attractionName +
+                        '\',\'' +
+                        location +
+                        '\')"></a>'
+                } else {
+                    UIkit.notification({message: '取消失败！', status: 'warning'})
+                    document.getElementById('icon-span').innerHTML = '<a href="#" class="uk-icon"\n' +
+                        '                                   onclick="collect_attraction(\'{{ request.session.user_name }}\',\'{{ Attraction.name }}\',\'{{ Attraction.location }}\')">\n' +
+                        '                                    <svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">\n' +
+                        '                                        <polygon fill="#000" stroke="#000" stroke-width="1.01"\n' +
+                        '                                                 points="10 2 12.63 7.27 18.5 8.12 14.25 12.22 15.25 18 10 15.27 4.75 18 5.75 12.22 1.5 8.12 7.37 7.27"></polygon>\n' +
+                        '                                    </svg>\n' +
+                        '                                </a>'
+                }
+            }
+        });
+        return false;
+    }
+
+</script>
+</body>
+
+<script src="/static/js/footer.js"></script>
+</html>

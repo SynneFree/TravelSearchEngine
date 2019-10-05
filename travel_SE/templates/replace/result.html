@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>山河寻遍-搜索结果</title>
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/uikit.min.css"/>
+    <link rel="stylesheet" href="../static/css/base.css">
+    <link rel="stylesheet" href="../static/css/card.css">
+    <script src="../static/js/jquery-3.4.1.min.js"></script>
+    <script src="../static/js/bootstrap.min.js"></script>
+    <script src="../static/js/uikit.min.js"></script>
+    <script src="../static/js/uikit-icons.min.js"></script>
+</head>
+<body>
+<script src="navbar.js"></script>
+<div>
+    <div class="col-8 tall center-block" style="padding-top: 2rem;padding-bottom: 1rem;">
+        <div class="uk-card uk-card-default uk-card-body">
+            <h1 class="font text-center display-4">山河寻遍</h1>
+            <div class="uk-margin col-8 uk-align-center" uk-margin>
+                <form action="#">
+                    <div class="input-group">
+                        <label for="data"></label>
+                        <input type="text" class="form-control" id="data" name="data"
+                               placeholder="" value="西湖">
+                        <div class="input-group-append">
+                            <input class="btn btn-primary" type="submit" value="搜索">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div uk-filter="target: .js-filter">
+                <ul class="uk-child-width-expand" uk-tab>
+                    <li class="uk-active" uk-filter-control><a href="#">全部</a></li>
+                    <li uk-filter-control="[data-tags*='森林']"><a href="#">森林</a></li>
+                    <li uk-filter-control="[data-tags*='湖泊']"><a href="#">湖泊</a></li>
+                    <li uk-filter-control="[data-tags*='名山']"><a href="#">名山</a></li>
+                    <li uk-filter-control="[data-tags*='公园']"><a href="#">公园</a></li>
+                    <li uk-filter-control="[data-tags*='寺庙']"><a href="#">寺庙</a></li>
+                    <li uk-filter-control="[data-tags*='博物馆']"><a href="#">博物馆</a></li>
+                </ul>
+                <ul class="js-filter uk-child-width-1-3 uk-child-width-1-4@m uk-grid-match" uk-grid>
+                    <li data-tags="摄影 避暑 温泉 观赏 园林 古村 湿地 湖泊">
+                        <div class="card">
+                            <div class="front" style="background-image: url(../static/img/result-img/扬州瘦西湖.jpg);">
+                                <p>扬州瘦西湖</p>
+                            </div>
+                            <div class="back">
+                                <div>
+                                    <p>中国>江苏省>扬州市>邗江区</p>
+                                    <a href="#">
+                                        <button class="button">查看</button>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li data-tags="摄影 徒步 攀岩 漂流 公园 古迹 名山 湖泊">
+                        <div class="card">
+                            <div class="front" style="background-image: url(../static/img/result-img/杭州西湖风景名胜区.jpg);">
+                                <p>杭州西湖风景名胜区</p>
+                            </div>
+                            <div class="back">
+                                <div>
+                                    <p>中国>浙江省>杭州市>西湖区</p>
+                                    <a href="#">
+                                        <button class="button">查看</button>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li data-tags="摄影 茶艺 休闲 茶园 博物馆 名山 森林">
+                        <div class="card">
+                            <div class="front" style="background-image: url(../static/img/result-img/中国茶叶博物馆.jpg);">
+                                <p>中国茶叶博物馆</p>
+                            </div>
+                            <div class="back">
+                                <div>
+                                    <p>中国>浙江省>杭州市>西湖区</p>
+                                    <a href="#">
+                                        <button class="button">查看</button>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li data-tags="赏花 婚庆 公园">
+                        <div class="card">
+                            <div class="front" style="background-image: url(../static/img/result-img/杭州太子湾公园.jpg);">
+                                <p>杭州太子湾公园</p>
+                            </div>
+                            <div class="back">
+                                <div>
+                                    <p>中国>浙江省>杭州市>西湖区</p>
+                                    <a href="#">
+                                        <button class="button">查看</button>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li data-tags="摄影 徒步 观光 休闲 度假 公园 古迹">
+                        <div class="card">
+                            <div class="front" style="background-image: url(../static/img/result-img/杭州宋城景区.jpg);">
+                                <p>杭州宋城景区</p>
+                            </div>
+                            <div class="back">
+                                <div>
+                                    <p>中国>浙江省>杭州市>西湖区</p>
+                                    <a href="#">
+                                        <button class="button">查看</button>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li data-tags="展览 佛教 艺术 名人纪念馆">
+                        <div class="card">
+                            <div class="front" style="background-image: url(../static/img/result-img/杭州李叔同纪念馆.jpg);">
+                                <p>杭州李叔同纪念馆</p>
+                            </div>
+                            <div class="back">
+                                <div>
+                                    <p>中国>浙江省>杭州市>西湖区</p>
+                                    <a href="#">
+                                        <button class="button">查看</button>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li data-tags="休闲 文化 行宫">
+                        <div class="card">
+                            <div class="front" style="background-image: url(../static/img/result-img/杭州林彪地下行宫.jpg);">
+                                <p>杭州林彪地下行宫</p>
+                            </div>
+                            <div class="back">
+                                <div>
+                                    <p>中国>浙江省>杭州市>西湖区</p>
+                                    <a href="#">
+                                        <button class="button">查看</button>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li data-tags="休闲 自然 观光 公园 植物">
+                        <div class="card">
+                            <div class="front" style="background-image: url(../static/img/result-img/杭州植物园.jpg);">
+                                <p>杭州植物园</p>
+                            </div>
+                            <div class="back">
+                                <div>
+                                    <p>中国>浙江省>杭州市>西湖区</p>
+                                    <a href="#">
+                                        <button class="button">查看</button>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li data-tags="摄影 徒步 观光 休闲 海洋馆">
+                        <div class="card">
+                            <div class="front" style="background-image: url(../static/img/result-img/杭州海底世界.jpg);">
+                                <p>杭州海底世界</p>
+                            </div>
+                            <div class="back">
+                                <div>
+                                    <p>中国>浙江省>杭州市>西湖区</p>
+                                    <a href="#">
+                                        <button class="button">查看</button>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li data-tags="摄影 徒步 观光 休闲 寺庙 古迹 名山">
+                        <div class="card">
+                            <div class="front" style="background-image: url(../static/img/result-img/杭州灵隐寺.jpg);">
+                                <p>杭州灵隐寺</p>
+                            </div>
+                            <div class="back">
+                                <div>
+                                    <p>中国>浙江省>杭州市>西湖区</p>
+                                    <a href="#">
+                                        <button class="button">查看</button>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="bar.js"></script>
+</body>
+<script src="footer.js"></script>
+</html>

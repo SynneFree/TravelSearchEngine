@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div>
+    {% for i in list %}
+        <p>{{ i }}</p>
+{% endfor %}
+
+{% if list.has_previous %}
+<a href="/page-test?page={{ list.previous_page_number }}">上一页</a>
+{% endif %}
+
+<span class="current">
+            Page {{ list.number }} of {{ list.paginator.num_pages }}.
+</span>
+
+{% if list.has_next %}
+    <a href="/page-test?page={{ list.next_page_number }}">next</a>
+{% endif %}
+
+</div>
+</body>
+</html>

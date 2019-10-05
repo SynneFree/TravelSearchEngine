@@ -1,0 +1,29 @@
+<div id="offcanvas-nav" uk-offcanvas="overlay: true;">
+    <div class="uk-offcanvas-bar uk-offcanvas-slide:none">
+        <ul class="uk-nav uk-nav-default uk-container-center" uk-nav>
+            {% for province in data %}
+                <li><hr class="uk-nav-divider"></li>
+                <li class="uk-parent">
+                    <a href="#">
+                        <div class="uk-inline">
+                            <img class="bar-img-size" src="../static/img/province/{{ province.name }}.jpg" alt="{{ province.name }}">
+                            <div class="uk-overlay uk-position-center"><h3 class="font">{{ province.name }}</h3></div>
+                        </div>
+                    </a>
+                    <ul class="uk-nav-sub" uk-nav>
+                        {% for city in province.cityList %}
+                        <li class="uk-parent">
+                            <a href="#" uk-icon="chevron-down">{{ city.name }}</a>
+                            <ul>
+                                {% for area in city.areaList %}
+                                <li><a>{{ area.name }}</a></li>
+                                 {% endfor %}
+                            </ul>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>

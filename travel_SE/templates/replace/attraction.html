@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>山河寻遍-北京故宫</title>
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/uikit.min.css"/>
+    <link rel="stylesheet" href="../static/css/base.css">
+    <script src="../static/js/jquery-3.4.1.min.js"></script>
+    <script src="../static/js/bootstrap.min.js"></script>
+    <script src="../static/js/uikit.min.js"></script>
+    <script src="../static/js/uikit-icons.min.js"></script>
+    <script src="../static/js/jquery.leoweather.min.js"></script>
+</head>
+<body>
+<script src="navbar.js"></script>
+<div class="uk-container-center">
+    <div class="col-8 tall center-block" style="padding-top: 2rem;padding-bottom: 1rem">
+        <div class="uk-card uk-card-default ">
+            <div class="uk-card-header">
+                <div>
+                    <h1 class="uk-article-title">
+                        <a class="uk-link-reset font" href="">北京故宫</a>
+                        <a href="#" uk-icon="star"
+                           onclick="UIkit.notification({message: '收藏成功！', status: 'success'})"></a>
+                    </h1>
+                </div>
+            </div>
+            <div class="uk-card-body">
+                <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slideshow>
+                    <ul class="uk-slideshow-items">
+                        <li>
+                            <img class="attraction-img-size" src="../static/img/attraction_img/北京故宫.jpg" alt="北京故宫"
+                                 uk-cover>
+                        </li>
+                        <li>
+                            <img class="attraction-img-size" src="../static/img/attraction_img/太和殿.jpg" alt="太和殿"
+                                 uk-cover>
+                        </li>
+                        <li>
+                            <img class="attraction-img-size" src="../static/img/attraction_img/中和殿.jpg" alt="中和殿"
+                                 uk-cover>
+                        </li>
+                    </ul>
+                    <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous
+                       uk-slideshow-item="previous"></a>
+                    <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next
+                       uk-slideshow-item="next"></a>
+                </div>
+            </div>
+            <article class="uk-article uk-card-footer">
+                <ul class="uk-child-width-expand" uk-switcher="animation: uk-animation-fade" uk-tab>
+                    <li><a href="#">景区简介</a></li>
+                    <li><a href="#">旅游攻略</a></li>
+                    <li><a href="#">旅游路线</a></li>
+                    <li><a href="#">门票信息</a></li>
+                    <li><a href="#">相关服务</a></li>
+                    <li><a href="#">天气情况</a></li>
+                    <li><a href="#">相关链接</a></li>
+                    <li><a href="#">景点评论</a></li>
+                </ul>
+                <ul class="uk-switcher uk-margin">
+                    <li>
+                        <ul uk-accordion="multiple: true">
+                            <li class="uk-open">
+                                <a class="uk-accordion-title" href="#">景区简介</a>
+                                <div class="uk-accordion-content">
+                                    <p>
+                                        &emsp;&emsp;北京故宫，世界上现存规模最大、保存最为完整的木质结构的古建筑之一，与法国凡尔赛宫、英国白金汉宫、美国白宫、俄罗斯克里姆林宫并称世界五大宫殿。
+                                        故宫旧称紫禁城，始建于明成祖朱棣永乐四年（公元1406年），历经14年建成竣工，是中国明、清两代24位皇帝的皇家宫殿，也是中国古代汉族宫廷建筑之精华，无与伦比的建筑杰作。<br/>
+                                        &emsp;&emsp;整个建筑金碧辉煌，庄严绚丽，均是木结构、黄琉璃瓦顶、青白石底座，饰以金碧辉煌的彩画。
+                                        宫城周围环绕着高12米，长3400米的宫墙，形式为一长方形城池，墙外有52米宽的护城河环绕，形成一个森严壁垒的城堡。
+                                        宫内以太和、中和、保和三大殿为中心，沿着一条南北向中轴线排列，并向两旁展开，南北取直，左右对称。
+                                        这条中轴线不仅贯穿在紫禁城内，而且南达永定门，北到鼓楼、钟楼，贯穿了整个城市，气魄宏伟，规划严整，极为壮观。<br/>
+                                    </p>
+                                </div>
+                            </li>
+                            <li class="uk-open">
+                                <a class="uk-accordion-title" href="#">景点分布</a>
+                                <div class="uk-accordion-content">
+                                    <p>
+                                        &emsp;&emsp;故宫坐落在北京核心，天安门广场与景山公园之间，占地72万平方米，建筑面积15万平方米，有房屋9999间。
+                                        故宫博物院藏有大量珍贵文物，据统计总共达1052653件之多，统称有文物100万件，占全国文物总数的1/6。
+                                        故宫的一些宫殿中设立了综合性的历史艺术馆、绘画馆、分类的陶瓷馆、青铜器馆、明清工艺美术馆、铭刻馆、玩具馆、
+                                        文房四宝馆、玩物馆、珍宝馆、钟表馆和清代宫廷典章文物展览等，收藏有大量古代艺术珍品，是中国收藏文物最丰富的博物馆。<br/>
+                                    </p>
+                                </div>
+                            </li>
+                            <li class="uk-open">
+                                <a class="uk-accordion-title" href="#">景区资质</a>
+                                <div class="uk-accordion-content">
+                                    <p>&emsp;&emsp;国家5A级景区、世界文化遗产、全国重点文物保护单位<br/></p>
+                                </div>
+                            </li>
+                            <li class="uk-open">
+                                <a class="uk-accordion-title" href="#">景区特色</a>
+                                <div class="uk-accordion-content">
+                                    <p>&emsp;&emsp;古迹游、文化游、亲子游、博物馆、皇家园林、古建筑<br/></p>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <ul uk-accordion="multiple: true">
+                            <li class="uk-open">
+                                <a class="uk-accordion-title" href="#">旅游攻略</a>
+                                <div class="uk-accordion-content">
+                                    <p>
+                                        &emsp;&emsp;1.故宫非常之大，有九千多间宫殿，如果一天内都逛遍几乎不可能。
+                                        一般游客只游览三大殿、后三宫、御花园，基本上从南到北大半天就能逛完。
+                                        有更多时间的游客朋友可以绕去东、西路的各个宫殿，更仔细地观摩其中展览的稀世珍宝。<br/>
+                                        &emsp;&emsp;2.所有参观的游客只能从靠近天安门广场的“午门”进入，其他门只出不进。<br/>
+                                        &emsp;&emsp;3.在珍宝馆、钟表馆、书画馆等展馆内，有志愿者提供汉语、英语的免费讲解。<br/>
+                                        &emsp;&emsp;4.故宫没有专用停车场，最近的公共停车场在东华门外、景山后街与北海南门，车位有限。建议观众选择公共交通前往。<br/>
+                                        &emsp;&emsp;5.2014年9月12至14日试行14点后半价票，不包括专题馆，票价30元，需要提前在官网预订；
+                                        10月可以在官网购买2015年故宫年票，成人300元，老人和学生150元，一年内可凭票参观10次，不含参观专馆。<br/>
+                                        &emsp;&emsp;6.2015年开放了一些新区域，包括：午门雁翅楼和端门城楼，慈宁宫、慈宁花园和寿康宫所在的西部区域，东华门城墙，宝蕴楼等四大区域五个项目。
+                                        午门和雁翅楼将设置2800平米的巨大文物展厅，慈宁宫将设置雕塑馆，东华门城楼开放后观众可以参观紫禁城六分之一左右的城墙，宝蕴楼也将展示故宫的文物藏品。<br/>
+                                        &emsp;&emsp;7.部门区域不定期关闭，以备调整、布展，详细信息请查询官网。<br/>
+                                    </p>
+                                </div>
+                            </li>
+                            <li class="uk-open">
+                                <a class="uk-accordion-title" href="#">游览路线</a>
+                                <div class="uk-accordion-content">
+                                    <p>
+                                        &emsp;&emsp;两小时路线：午门 → 太和门 → 弘义阁 → 太和殿 → 中和殿 → 保和殿 → 军机处 → 乾清门 → 乾清宫 → 交泰殿 → 坤宁宫
+                                        →
+                                        御花园 →
+                                        神武门；<br/>
+                                        &emsp;&emsp;半日游：午门 → 太和门 → 弘义阁 → 太和殿 → 中和殿 → 保和殿 → 军机处 → 养心殿 → 永寿宫 → 太极殿 → 长春宫 →
+                                        翊坤宫
+                                        → 储秀宫 →
+                                        咸福宫 → 御花园 → 坤宁宫 → 交泰殿 → 乾清宫 → 乾清门 → 奉先殿（钟表馆） → 锡庆门 → 九龙壁 → 皇极门 → 皇极殿 → 宁寿宫 →
+                                        畅音阁 → 养性殿（珍宝馆） → 宁寿宫花园（乾隆花园） → 乐寿堂 → 颐和轩 → 符望阁 → 珍妃井 → 神武门<br/>
+                                        &emsp;&emsp;一日游：午门 → 熙和门 → 武英殿 → 熙和门 → 太和门 → 弘义阁 → 太和殿 → 中和殿 → 保和殿 → 军机处 → 养心殿 →
+                                        永寿宫
+                                        → 太极殿 →
+                                        长春宫 → 翊坤宫 → 储秀宫 → 咸福宫 → 御花园 → 坤宁宫 → 交泰殿 → 乾清宫 → 乾清门 → 奉先殿（钟表馆） → 锡庆门 → 九龙壁 →
+                                        皇极门 → 皇极殿 → 宁寿宫 → 畅音阁 → 养性殿（珍宝馆） → 宁寿宫花园（乾隆花园） → 乐寿堂 → 颐和轩 → 符望阁 → 珍妃井 → 东筒子
+                                        → 苍震门 → 延禧宫 → 景仁宫 → 斋宫 → 承乾宫 → 永和宫 → 景阳宫 → 钟粹宫 → 钦安殿 → 神武门<br/>
+                                    </p>
+                                </div>
+                            </li>
+                            <li class="uk-open">
+                                <a class="uk-accordion-title" href="#">最佳游览时间</a>
+                                <div class="uk-accordion-content">
+                                    <p>&emsp;&emsp;四季皆可<br/></p>
+                                </div>
+                            </li>
+                            <li class="uk-open">
+                                <a class="uk-accordion-title" href="#">购物推荐</a>
+                                <div class="uk-accordion-content">
+                                    <p>&emsp;&emsp;在乾清门、御花园、坤宁门附近，餐饮、茶饮、书店和商店较为集中，可购买故宫相关的资料书籍和画册、工艺品等。<br/></p>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <ul uk-accordion="multiple: true">
+                            <li class="uk-open">
+                                <a class="uk-accordion-title" href="#">景区位置</a>
+                                <div class="uk-accordion-content">
+                                    <p>&emsp;&emsp;中国>北京市>西城区<br/></p>
+                                </div>
+                            </li>
+                            <li class="uk-open">
+                                <a class="uk-accordion-title" href="#">到达方式</a>
+                                <div class="uk-accordion-content">
+                                    <p>
+                                        &emsp;&emsp;南侧（午门）入馆：地铁1号线天安门东或天安门西站；
+                                        公交1、2、5、10、22、82、120、37、52、59、126、90、99、203、205、210、728路、专1路、专2路，到天安门东站或天安门西站下车。
+                                        <br/>
+                                        &emsp;&emsp;北侧的神武门和东侧的东华门，仅作为参观出口，不可由此进入参观。<br/>
+                                    </p>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <ul uk-accordion="multiple: true">
+                            <li class="uk-open">
+                                <a class="uk-accordion-title" href="#">故宫门票价格</a>
+                                <div class="uk-accordion-content">
+                                    <p>
+                                        &emsp;&emsp;故宫全部网上售票，可在官网或现场扫码买票。<br/>
+                                        &emsp;&emsp;旺季（4月1日--10月31日）：60元/人<br/>
+                                        &emsp;&emsp;淡季（11月1日--次年3月31日）：40元/人<br/>
+                                        &emsp;&emsp;珍宝馆（宁寿宫区，包括戏曲馆、石鼓馆）：10元/人<br/>
+                                        &emsp;&emsp;钟表馆（奉先殿区）：10元/人<br/>
+                                        &emsp;&emsp;优惠措施：身高1.2米以下儿童可以随监护人免票参观，离休干部、残疾人等凭证件免费；大中小学生凭证件每张20元/人，60岁以上（包括60岁）老年人凭有效证件门票半价。<br/>
+                                        &emsp;&emsp;节日优惠：“六一”儿童节，14周岁以下的儿童（含14周岁）可以免费参观，随同家长一人可享受半价优惠。“三八”妇女节，女性观众可享受门票半价优惠。
+                                        “八一”建军节，现役中国军人可凭有效证件免费参观。<br/>
+                                        &emsp;&emsp;
+                                        半价优惠（2014年9月12日至14日试行）：当日14时以后入院优惠票价为30元，不包含专馆。现场不销售半日优惠门票，需提前官网预订。<br/>
+                                        &emsp;&emsp;年票（2014年10月可订）：成人票300元，老人和学生150元，一年内可凭票参观10次，使用次数满额后停止使用。该票不含参观专馆的费用，每个证件一年只能购买一次。<br/>
+                                        &emsp;&emsp;主题免费开放日：2014年至2015年淡季每月的第一个星期三，对教师、医护人员、志愿者、现役军人、公安民警、大专院校学生免费。<br/>
+                                    </p>
+                                </div>
+                            </li>
+                            <li class="uk-open">
+                                <a class="uk-accordion-title" href="#">景区开放时间</a>
+                                <div class="uk-accordion-content">
+                                    <p>
+                                        &emsp;&emsp;【旺季】 8:30～16:00售票，16:10停止入馆，17:00清场；<br/>
+                                        &emsp;&emsp;【淡季】 8:30～15:30售票，15:40停止入馆，16:30清场。<br/>
+                                        &emsp;&emsp;每周一全天闭馆，法定节假日和暑期（每年7月1日至8月31日）除外。<br/>
+                                    </p>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <ul uk-accordion="multiple: true">
+                            <li class="uk-open">
+                                <a class="uk-accordion-title" href="#">景区官网</a>
+                                <div class="uk-accordion-content">
+                                    <p>&emsp;&emsp;www.dpm.org.cn<br/></p>
+                                </div>
+                            </li>
+                            <li class="uk-open">
+                                <a class="uk-accordion-title" href="#">景区服务</a>
+                                <div class="uk-accordion-content">
+                                    <p>
+                                        &emsp;&emsp;语音导游租赁：午门与神武门内，汉语版、粤语版每台20元，其他语种每台40元。参观完毕，请在出院前将语音讲解器交至讲解服务处。<br/>
+                                        &emsp;&emsp;讲解服务：午门、神武门；5人或5人以下全程250元，中、西路150元，中路100元；5人以上，每增加1人，加收10元。<br/>
+                                        &emsp;&emsp;存包处：午门与神武门外东侧，工作时间为8:30-18:00。存包行李可在午门（南门）至神武门（北门）之间免费运送；观众也可选择接受安全检查后随身携带。<br/>
+                                        &emsp;&emsp;观众咨询中心：太和门、箭亭。<br/>
+                                        &emsp;&emsp;自动柜员机（ATM）：钟表馆门口有中国银行的ATM取款机；珍宝馆门口有中国工商银行的ATM取款机。<br/>
+                                    </p>
+                                </div>
+                            </li>
+                            <li class="uk-open">
+                                <a class="uk-accordion-title" href="#">景区电话</a>
+                                <div class="uk-accordion-content">
+                                    <p>&emsp;&emsp;010－85007421/85007422<br/></p>
+                                </div>
+                            </li>
+                            <li class="uk-open">
+                                <a class="uk-accordion-title" href="#">注意事项</a>
+                                <div class="uk-accordion-content">
+                                    <p>
+                                        &emsp;&emsp;1、如果有吸烟的习惯，请您在故宫博物院内参观游览时克制，并提醒他人不要吸烟！<br/>
+                                        &emsp;&emsp;2、请不要在古建筑和古树上刻画涂写，不仅不会使您英名永驻，反而遭到大家的鄙视。<br/>
+                                        &emsp;&emsp;3、按照国际惯例在展厅请勿使用闪光灯和三脚架拍照。<br/>
+                                        &emsp;&emsp;4、与其他博物馆合作举办的展览以及特色商品店，不允许观众拍照展品。<br/>
+                                    </p>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <ul uk-accordion="multiple: true">
+                            <li class="uk-open">
+                                <a class="uk-accordion-title" href="#">故宫天气预报</a>
+                                <div class="uk-accordion-content">
+                                    <iframe width="500" scrolling="no" height="60" frameborder="0"
+                                            allowtransparency="true"
+                                            src="//i.tianqi.com/index.php?c=code&id=12&icon=1&py=zhenhaiqu&num=5&site=12">
+                                    </iframe>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <ul uk-accordion="multiple: true">
+                            <li class="uk-open">
+                                <a class="uk-accordion-title" href="#">其他链接</a>
+                                <div class="uk-accordion-content">
+                                    &emsp;&emsp;<a class="uk-button uk-button-text" href="#">故宫官网</a><br/>
+                                    &emsp;&emsp;<a class="uk-button uk-button-text" href="#">百度百科：故宫</a><br/>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <ul uk-accordion="multiple: true">
+                            <li class="uk-card uk-card-default uk-card-body">
+                                <header class="uk-comment-header uk-grid-medium uk-flex-middle" uk-grid>
+                                    <div class="uk-width-expand">
+                                        <h4 class="uk-comment-title uk-margin-remove"><a class="uk-link-reset" href="#">徐霞客</a>
+                                        </h4>
+                                        <ul class="uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top">
+                                            <li><a href="#">12天前</a></li>
+                                            <li><a href="#">回复</a></li>
+                                        </ul>
+                                    </div>
+                                </header>
+                                <div class="uk-comment-body">
+                                    <p>四月初一日</p>
+                                    <p>
+                                        早雨。行十五里，路有岐，马首西向台山，天色渐霁。
+                                        又十里，抵松门岭，山峻路滑，舍骑步行。自奉化来，虽越岭数重，皆循山麓；至此迂回临陟，俱在山脊。
+                                        而雨后新霁晴，泉声山色，往复创变，翠丛中山鹃映发，今人攀历忘苦。
+                                    </p>
+                                </div>
+                            </li>
+                            <li class="uk-card uk-card-default uk-card-body">
+                                <header class="uk-comment-header uk-grid-medium uk-flex-middle" uk-grid>
+                                    <div class="uk-width-expand">
+                                        <h4 class="uk-comment-title uk-margin-remove"><a class="uk-link-reset" href="#">徐霞客</a>
+                                        </h4>
+                                        <ul class="uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top">
+                                            <li><a href="#">11天前</a></li>
+                                            <li><a href="#">回复</a></li>
+                                        </ul>
+                                    </div>
+                                </header>
+                                <div class="uk-comment-body">
+                                    <p>初二日</p>
+                                    <p>
+                                        饭后，雨始止。遂越潦积水攀岭，溪石渐幽，二十里，暮抵天封寺。
+                                        卧念晨上峰顶，以朗霁为缘，盖连日晚霁，并无晓晴。
+                                        及五更梦中，闻明星满天，喜不成寐。
+                                    </p>
+                                </div>
+                            </li>
+                            <li class="uk-card uk-card-default uk-card-body">
+                                <p>发表评论</p>
+                                <form>
+                                    <fieldset class="uk-fieldset">
+                                        <div class="uk-margin">
+                                            <label for="comment_text" style="display: none"></label>
+                                            <textarea id="comment_text" name="comment_text" class="uk-textarea" rows="5"
+                                                      placeholder="请自觉遵守互联网相关的政策法规，严禁发布色情、暴力、反动的言论。"
+                                                      onfocus="this.placeholder='';"
+                                                      onblur="this.placeholder='请自觉遵守互联网相关的政策法规，严禁发布色情、暴力、反动的言论。';"></textarea><br>
+                                        </div>
+                                        <div class="uk-margin">
+                                            <input type="submit" class="uk-button uk-button-default uk-align-right"
+                                                   value="发布">
+                                        </div>
+                                    </fieldset>
+                                </form>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </article>
+        </div>
+    </div>
+</div>
+<script src="bar.js"></script>
+</body>
+<script src="footer.js"></script>
+</html>

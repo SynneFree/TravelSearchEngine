@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>test</title>
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/uikit.min.css"/>
+    <link rel="stylesheet" href="../static/css/base.css">
+    <script src="../static/js/jquery-3.4.1.min.js"></script>
+    <script src="../static/js/bootstrap.min.js"></script>
+    <script src="../static/js/uikit.min.js"></script>
+    <script src="../static/js/uikit-icons.min.js"></script>
+</head>
+<body>
+<p>请输入两个数字</p>
+<form action="/test-add" method="post">
+    a: <input type="text" id="a" name=""> <br>
+    b: <input type="text" id="b" name=""> <br>
+    <p>result: <span id='result'></span></p>
+    <a id="sub">提交</a>
+    <button type="button" id='sum'>提交</button>
+</form>
+
+<script src="http://apps.bdimg.com/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+      $("#sub").click(function(){
+        var a = $("#a").val();
+        var b = $("#b").val();
+
+        $.post("/test-add",{'a':a,'b':b}, function(ret){
+            $('#result').html(ret)
+        })
+      });
+    });
+</script>
+
+</body>
+</html>

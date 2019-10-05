@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>山河寻遍-搜索结果</title>
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/uikit.min.css"/>
+    <link rel="stylesheet" href="/static/css/base.css">
+    <link rel="stylesheet" href="/static/css/card.css">
+    <script src="/static/js/jquery-3.4.1.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/uikit.min.js"></script>
+    <script src="/static/js/uikit-icons.min.js"></script>
+    <script src="/static/js/leftbar.js"></script>
+</head>
+<body style="background: url(/static/img/body-background.jpg) fixed content-box;">
+<nav class="uk-navbar-container" uk-navbar>
+    <div class="uk-width-1-6"></div>
+    <div class="uk-width-4-6">
+        <ul class="uk-navbar-left uk-navbar-nav">
+            <li><a uk-toggle="target: #offcanvas-nav" uk-icon="icon:table"></a></li>
+            <li class="uk-active">
+                <a href="/" style="font-size: 20px;font-family: font;font-weight: bold">
+                    <img src="../static/img/山河.png" alt="山河寻遍" style="width: 30px;height: 45px">
+                </a>
+            </li>
+            <li>
+                {% if request.session.is_login %}
+                    <a href="#">您好，{{ request.session.user_name }}</a>
+                    <div class="uk-navbar-dropdown">
+                        <ul class="uk-nav uk-navbar-dropdown-nav">
+                            <li><a href="/personal-center">个人中心</a></li>
+                            <li><a href="#">历史查询</a></li>
+                            <li><a href="#">收藏景点</a></li>
+                            <li class="uk-nav-divider"></li>
+                            <li><a href="/logout">注销</a></li>
+                        </ul>
+                    </div>
+                {% else %}
+                    <a href="#">您好，请登录</a>
+                    <div class="uk-navbar-dropdown">
+                        <ul class="uk-nav uk-navbar-dropdown-nav">
+                            <li><a href="/login">登录</a></li>
+                            <li><a href="/register">注册</a></li>
+                        </ul>
+                    </div>
+                {% endif %}
+            </li>
+        </ul>
+    </div>
+</nav>
+<div>
+    <div class="col-8 tall center-block" style="padding-top: 2rem;padding-bottom: 1rem;">
+        <div class="uk-card uk-card-default uk-card-body">
+            <h1 class="font text-center display-4">山河寻遍</h1>
+            <div class="uk-margin col-8 uk-align-center" uk-margin>
+                <form method="get" action="/search">
+                    <div class="input-group">
+                        <label for="data"></label>
+                        <input type="text" class="form-control" id="data" name="search_field"
+                               placeholder="{{ search_field }}"
+                               onfocus="this.placeholder='';this.classList.remove('uk-form-danger')"
+                               onblur="this.placeholder='';this.classList.remove('uk-form-danger')"
+                               value="{{ search_field }}">
+                        <div class="input-group-append">
+                            <input class="btn btn-primary" type="submit" onclick="check_data()" value="搜索">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div uk-filter="target: .js-filter">
+                <ul class="uk-child-width-expand" uk-tab>
+                    <li class="uk-active" uk-filter-control><a href="#">全部</a></li>
+                    <li uk-filter-control="[data-tags*='5A']"><a href="#">5A级景区</a></li>
+                    <li uk-filter-control="[data-tags*='3A']"><a href="#">3A级景区</a></li>
+                    <li uk-filter-control="[data-tags*='自然保护区']"><a href="#">自然保护区</a></li>
+                    <li uk-filter-control="[data-tags*='博物馆']"><a href="#">博物馆</a></li>
+                    <li uk-filter-control="[data-tags*='纪念馆']"><a href="#">纪念馆</a></li>
+                    <li uk-filter-control="[data-tags*='建筑']"><a href="#">建筑</a></li>
+                    <li uk-filter-control="[data-tags*='公园']"><a href="#">公园</a></li>
+                </ul>
+                <div class="uk-child-width-1-4@m uk-grid-small uk-grid-match" uk-grid>
+                </div>
+                <ul class="js-filter uk-child-width-1-3 uk-child-width-1-4@m uk-text-center uk-grid-match" uk-grid>
+                    {% for item in list %}
+                        <li data-tags="{{ item.feature }} {{ item.rank }}">
+                            <div class="card">
+                                <div class="front"
+                                     style="background-image: url('/static/img/pictures/{{ item.cover }}');">
+                                    <p class="">{{ item.name }}</p>
+                                </div>
+                                <div class="back">
+                                    <div>
+                                        <p>{{ item.location }}</p>
+                                        <form method="get" action="/attraction-detail">
+                                            <input type="text" style="display: none" name="attractionName"
+                                                   value="{{ item.name }}">
+                                            <input type="text" style="display: none" name="attractionLocation"
+                                                   value="{{ item.location }}">
+                                            <button class="button uk-button uk-button-text" type="submit">查看</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+                <div>
+                    <br>
+                    <ul class="uk-pagination uk-flex-center" uk-margin>
+                        {% if list.has_previous %}
+                            {% if searchingArea %}
+                                <li><a style="padding-top: 8px"
+                                       href="/search-by-area?area-field={{ area_field }}&page={{ list.previous_page_number }}"><span
+                                        uk-pagination-previous></span>上一页</a>
+                                </li>
+                            {% elif checkingAll %}
+                                <li><a style="padding-top: 8px"
+                                       href="/check-all?page={{ list.previous_page_number }}"><span
+                                        uk-pagination-previous></span>上一页</a>
+                                </li>
+                            {% elif checkingHot %}
+                                <li><a style="padding-top: 8px"
+                                       href="/check-hot?page={{ list.previous_page_number }}"><span
+                                        uk-pagination-previous></span>上一页</a>
+                                </li>
+                            {% else %}
+                                <li><a style="padding-top: 8px"
+                                       href="/search?search_field={{ search_field }}&page={{ list.previous_page_number }}"><span
+                                        uk-pagination-previous></span>上一页</a>
+                                </li>
+                            {% endif %}
+
+                        {% else %}
+                            <li>
+                                <a style="padding-top: 8px" href="javascript:return false;"><span
+                                        uk-pagination-previous></span>上一页</a>
+                            </li>
+                        {% endif %}
+                        <li><p style="padding-top: 8px">{{ list.number }}/{{ list.paginator.num_pages }}</p></li>
+                        {% if list.has_next %}
+                            {% if searchingArea %}
+                                <li><a style="padding-top: 8px"
+                                       href="/search-by-area?area-field={{ area_field }}&page={{ list.next_page_number }}"><span
+                                        uk-pagination-next>下一页</span></a>
+                                </li>
+                            {% elif checkingAll %}
+                                <li><a style="padding-top: 8px"
+                                       href="/check-all?page={{ list.next_page_number }}"><span
+                                        uk-pagination-next>下一页</span></a>
+                                </li>
+                            {% elif checkingHot %}
+                                <li><a style="padding-top: 8px"
+                                       href="/check-hot?page={{ list.next_page_number }}"><span
+                                        uk-pagination-next>下一页</span></a>
+                                </li>
+                            {% else %}
+                                <li><a style="padding-top: 8px"
+                                       href="/search?search_field={{ search_field }}&page={{ list.next_page_number }}"><span
+                                        uk-pagination-next>下一页</span></a>
+                                </li>
+                            {% endif %}
+
+                        {% else %}
+                            <li><a style="padding-top: 8px" href="javascript:return false;"><span
+                                    uk-pagination-next>下一页</span></a></li>
+                        {% endif %}
+                        <li class="uk-width-1-6">
+                            <div class="uk-inline">
+                                <a class="uk-form-icon uk-form-icon-flip" href="#" onclick="skip_to('{{ skipTo }}')"
+                                   uk-icon="icon: sign-in"></a>
+                                <input id="page_number" class="uk-input" type="text">
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="offcanvas-nav" uk-offcanvas="overlay: true;">
+    <div class="uk-offcanvas-bar uk-offcanvas-slide:none">
+        <ul class="uk-nav uk-nav-default uk-container-center" uk-nav>
+            {% for province in data %}
+                <li>
+                    <hr class="uk-nav-divider">
+                </li>
+                <li class="uk-parent">
+                    <a href="#">
+                        <div class="uk-inline" id="id-{{ province.name }}" onclick="displayCity('{{ province.name }}')">
+                            <img class="bar-img-size" src="/static/img/province/{{ province.name }}.jpg"
+                                 alt="{{ province.name }}">
+                            <div class="uk-overlay uk-position-center"><h3 class="font">{{ province.name }}</h3></div>
+                        </div>
+                    </a>
+                    <ul id="list-{{ province.name }}" class="uk-nav-sub cl-city" uk-nav>
+                        <ul class="cl-area"></ul>
+                    </ul>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+<div style="position: fixed;right: 80px;bottom: 300px;width: 120px;height: 120px;"
+     style="background: rgba(255,255,255,.0)">
+    <div class="uk-card uk-card-default" style="background: rgba(255,255,255,.0)">
+        <div class="uk-card-body" style="background: rgba(255,255,255,.7)">
+            <ul class="uk-nav uk-nav-default" style="padding: 0;">
+                <li><a style="padding-left: 32px;padding-right: 20px" href="/personal-center">个人中心</a></li>
+                <li><a style="padding-left: 32px;padding-right: 0" href="/check-hot">热门推荐</a></li>
+                <li><a style="padding-left: 32px;padding-right: 20px" href="/check-all">查看全部</a></li>
+                <li><a style="padding-left: 32px;padding-right: 20px" href="/">返回首页</a></li>
+                <li><a style="padding-left: 50px" href="#" uk-totop uk-scroll></a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<script>
+    function check_data() {
+        let data = document.getElementById('data');
+        if (data.value === '') {
+            data.placeholder = "检索栏不能为空";
+            data.classList.add("uk-form-danger");
+            window.event.returnValue = false;
+        } else if (data.value.length > 32) {
+            data.value = "";
+            data.placeholder = "检索内容不多于32字";
+            data.classList.add("uk-form-danger");
+            window.event.returnValue = false;
+        }
+    }
+
+    function skip_to(skipTo) {
+        let page_number = document.getElementById('page_number');
+        console.log(skipTo);
+        if (skipTo == 0) {
+            location.href = "/search-by-area?area-field={{ area_field }}&page=" + page_number.value;
+            location.href.reload();
+        }
+        else if (skipTo == 1) {
+            location.href = "/search?search_field={{ search_field }}&page=" + page_number.value;
+            location.href.reload();
+        } else if (skipTo == 2) {
+            location.href = "/check-all?page=" + page_number.value;
+            location.href.reload();
+        } else if (skipTo == 3) {
+            location.href = "/check-hot?page=" + page_number.value;
+            location.href.reload();
+        }
+        return false
+    }
+</script>
+</body>
+<script src="/static/js/footer.js"></script>
+</html>

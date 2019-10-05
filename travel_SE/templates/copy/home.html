@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>山河寻遍</title>
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/uikit.min.css"/>
+    <link rel="stylesheet" href="../static/css/base.css">
+    <script src="../static/js/jquery-3.4.1.min.js"></script>
+    <script src="../static/js/bootstrap.min.js"></script>
+    <script src="../static/js/uikit.min.js"></script>
+    <script src="../static/js/uikit-icons.min.js"></script>
+</head>
+<body>
+<!-- <script src="../static/js/navbar.js"></script> -->
+<!-- Navbar.html -->
+<nav class="uk-navbar-container" uk-navbar>
+    <div class="uk-width-1-6"></div>
+    <div class="uk-width-4-6">
+        <ul class="uk-navbar-left uk-navbar-nav">
+            <li><a uk-toggle="target: #offcanvas-nav" uk-icon="icon:table"></a></li>
+            <li class="uk-active"><a href="home.html" style="font-size: 20px;font-family: font;font-weight: bold">山河寻遍</a></li>
+            <li>
+                {% if request.session.is_login %}  
+                    <a href="#">您好，{{ request.session.user_name }}</a>
+                    <div class="uk-navbar-dropdown">
+                        <ul class="uk-nav uk-navbar-dropdown-nav">
+                            <li><a href="#">个人中心</a></li>
+                            <li><a href="#">历史查询</a></li>
+                            <li><a href="#">收藏景点</a></li>
+                            <li class="uk-nav-divider"></li>
+                            <li><a href="/logout">注销</a></li>
+                        </ul>
+                    </div>
+                {% else %}
+                    <a href="#">您好，请登录</a>
+                    <div class="uk-navbar-dropdown">
+                        <ul class="uk-nav uk-navbar-dropdown-nav">
+                            <li><a href="/login">登录</a></li>
+                            <li><a href="/register">注册</a></li>
+                        </ul>
+                    </div>
+                {% endif %}
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<!-- end of Navbar.html -->
+
+
+<div class="uk-text-center uk-container-center">
+    <div class="uk-inline-clip uk-transition-toggle" tabindex="0">
+        <img src="../static/img/水墨中华.jpg" alt="">
+        <div class="uk-transition-fade uk-position-cover uk-overlay uk-overlay-default">
+            <div class="tall">
+                <div class="col-8 center-block">
+                    <div class="center-block" style="padding-top: 6rem;padding-bottom: 2rem">
+                        <h1 class="font text-center display-3">山河寻遍</h1>
+                    </div>
+                    <form class="col-10 center-block" action="#">
+                        <div class="input-group">
+                            <label for="data"></label>
+                            <input type="text" class="form-control" id="data" name="data"
+                                   placeholder="">
+                            <div class="input-group-append">
+                                <input class="btn btn-primary" type="submit" value="搜索">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../static/js/bar.js"></script>
+</body>
+<div class="text-center" style="margin-bottom: 0">
+    <hr class="uk-divider-icon">
+    <div>
+        <p>Copyright © 2019 山河寻遍项目工作组</p>
+    </div>
+</div>
+</html>
